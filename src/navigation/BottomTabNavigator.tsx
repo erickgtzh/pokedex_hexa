@@ -1,16 +1,16 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {PokemonList, AddPokemon, UserProfile} from '../pages';
+import {UserProfile, PokemonList, Notifications} from '../pages';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {colors} from '../colors';
 
 const Tab = createBottomTabNavigator();
 
 const PokemonListIcon = ({color}: {color: string}) => (
-  <MaterialIcons name="list" size={25} color={color} />
+  <MaterialIcons name="catching-pokemon" size={25} color={color} />
 );
-const AddPokemonIcon = ({color}: {color: string}) => (
-  <MaterialIcons name="add-circle" size={25} color={color} />
+const NotificationsIcon = ({color}: {color: string}) => (
+  <MaterialIcons name="notifications" size={25} color={color} />
 );
 const UserProfileIcon = ({color}: {color: string}) => (
   <MaterialIcons name="person" size={25} color={color} />
@@ -18,20 +18,20 @@ const UserProfileIcon = ({color}: {color: string}) => (
 
 const BottomTabNavigator = () => {
   const tabOptions = {
+    UserProfile: {
+      headerTitle: 'My Profile',
+      tabBarLabel: 'My Profile',
+      tabBarIcon: UserProfileIcon,
+    },
     PokemonList: {
       headerTitle: 'My Pokédex',
       tabBarLabel: 'Pokédex',
       tabBarIcon: PokemonListIcon,
     },
-    AddPokemon: {
-      headerTitle: 'Add Pokemon',
-      tabBarLabel: 'Add Pokemon',
-      tabBarIcon: AddPokemonIcon,
-    },
-    UserProfile: {
-      headerTitle: 'My Profile',
-      tabBarLabel: 'My Profile',
-      tabBarIcon: UserProfileIcon,
+    Notifications: {
+      headerTitle: 'Notifications',
+      tabBarLabel: 'Notifications',
+      tabBarIcon: NotificationsIcon,
     },
   };
 
@@ -42,19 +42,19 @@ const BottomTabNavigator = () => {
         tabBarActiveTintColor: colors.accent,
       }}>
       <Tab.Screen
+        name="UserProfile"
+        component={UserProfile}
+        options={tabOptions.UserProfile}
+      />
+      <Tab.Screen
         name="PokemonList"
         component={PokemonList}
         options={tabOptions.PokemonList}
       />
       <Tab.Screen
-        name="AddPokemon"
-        component={AddPokemon}
-        options={tabOptions.AddPokemon}
-      />
-      <Tab.Screen
-        name="UserProfile"
-        component={UserProfile}
-        options={tabOptions.UserProfile}
+        name="Notifications"
+        component={Notifications}
+        options={tabOptions.Notifications}
       />
     </Tab.Navigator>
   );
