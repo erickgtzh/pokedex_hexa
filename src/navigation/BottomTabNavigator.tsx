@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {UserProfile, PokemonList, Notifications} from '../pages';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {colors} from '../colors';
+import {colors} from '../utils/colors';
 
 const Tab = createBottomTabNavigator();
 

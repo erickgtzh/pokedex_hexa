@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import Button from '../../atoms/Button';
 import Text from '../../atoms/Text';
 import styles from './styles';
-import {useCounterContext} from '../../context/CounterContext';
+import {useCounterContext} from '../../../context/CounterContext';
 
 const Counter = () => {
   const {state, dispatch} = useCounterContext();
