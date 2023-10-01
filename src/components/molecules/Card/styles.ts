@@ -18,5 +18,21 @@ export default StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 100,
   },
-  text: {paddingTop: 15},
+  text: {paddingTop: 15, textTransform: 'capitalize'},
+  imageContainer: {
+    height: 125,
+    width: 125,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  absoluteContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

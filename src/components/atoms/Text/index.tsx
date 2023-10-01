@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text as RNText, TextStyle} from 'react-native';
+import {Text as RNText, TextProps, TextStyle} from 'react-native';
 import styles from './style';
 import fonts from '../../../utils/fonts';
 
-interface TextProps {
+interface CustomTextProps extends TextProps {
   children: React.ReactNode;
   style?: TextStyle;
   variant?: 'title' | 'subtitle' | 'normal';
@@ -11,7 +11,7 @@ interface TextProps {
   color?: string;
 }
 
-const Text: React.FC<TextProps> = ({
+const Text: React.FC<CustomTextProps> = ({
   children,
   style,
   variant = 'normal',

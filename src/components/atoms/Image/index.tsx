@@ -13,6 +13,8 @@ interface ImageProps {
   type: 'svg' | 'image';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   style?: StyleProp<ViewStyle & ImageStyle>;
+  onLoad?: () => void;
+  onError?: () => void;
 }
 
 const sizes = {
@@ -22,23 +24,46 @@ const sizes = {
   xl: {width: 150, height: 150},
 };
 
-const Image: React.FC<ImageProps> = ({src, type, size = 'md', style}) => {
+const Image: React.FC<ImageProps> = ({
+  src,
+  type,
+  size = 'md',
+  style,
+  onLoad,
+  onError,
+}) => {
   const dimensions = sizes[size];
+
+  const containerStyle = [
+    dimensions,
+    style,
+    {minHeight: dimensions.height, minWidth: dimensions.width},
+  ];
 
   if (type === 'svg') {
     return (
-      <View style={[dimensions, style]}>
-        <SvgUri uri={src} width="100%" height="100%" />
+      <View style={containerStyle}>
+        <SvgUri
+          uri={src}
+          width="100%"
+          height="100%"
+          onLoad={onLoad}
+          onError={onError}
+        />
       </View>
     );
   }
 
   return (
-    <NativeImage
-      source={{uri: src}}
-      style={[dimensions, style]}
-      resizeMode="contain"
-    />
+    <View style={containerStyle}>
+      <NativeImage
+        source={{uri: src}}
+        style={[dimensions, style]}
+        resizeMode="contain"
+        onLoad={onLoad}
+        onError={onError}
+      />
+    </View>
   );
 };
 

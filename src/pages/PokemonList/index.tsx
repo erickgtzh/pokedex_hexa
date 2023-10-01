@@ -8,33 +8,39 @@ import {FlatList, View} from 'react-native';
 import styles from './styles';
 
 const PokemonList: React.FC = () => {
-  const [pokemons, setPokemons] = useState<Pokemon[] | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const limit = 20;
+
+  const loadMorePokemons = async () => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const newPokemons = await fetchPokemons(offset, limit);
+      setPokemons(prevPokemons => [...prevPokemons, ...newPokemons]);
+      setOffset(prevOffset => prevOffset + limit);
+    } catch (error) {
+      console.error('Error fetching more pokemons:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const getPokemons = async () => {
-      try {
-        setLoading(true);
-        const pokemonsList = await fetchPokemons();
-        setPokemons(pokemonsList);
-      } catch (error) {
-        console.error('Error fetching pokemons:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getPokemons();
+    loadMorePokemons();
   }, []);
 
-  if (loading) {
+  if (loading && offset === 0) {
     return <Loader />;
   }
 
-  if (!pokemons) {
+  if (pokemons.length === 0) {
     return (
       <View style={styles.notFound}>
-        <Text>No pokemons found!</Text>
+        <Text variant="title">No pokemons found!</Text>
       </View>
     );
   }
@@ -46,6 +52,9 @@ const PokemonList: React.FC = () => {
         <Card key={item.name} name={item.name} imageUrl={item.imageUrl} />
       )}
       keyExtractor={item => item.name}
+      onEndReached={loadMorePokemons}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={loading ? <Loader /> : null}
       numColumns={2}
       contentContainerStyle={styles.container}
     />
