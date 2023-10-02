@@ -13,7 +13,7 @@ interface CardProps {
   children?: React.ReactNode;
 }
 
-const Card: React.FC<CardProps> = ({name, imageUrl, children}) => {
+const Card: React.FC<CardProps> = React.memo(({name, imageUrl, children}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -52,6 +52,6 @@ const Card: React.FC<CardProps> = ({name, imageUrl, children}) => {
       {children}
     </View>
   );
-};
+});
 
 export default Card;

@@ -1,58 +1,63 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {FlatList} from 'react-native';
 import Card from '../../components/molecules/Card/Card';
-import Pokemon from '../../models/Pokemon';
 import {fetchPokemons} from '../../components/PokemonService';
 import Loader from '../../components/atoms/Loader';
-import Text from '../../components/atoms/Text';
-import {FlatList, View} from 'react-native';
 import styles from './styles';
+import Pokemon from '../../models/Pokemon';
 
 const PokemonList: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [offset, setOffset] = useState(0);
-  const limit = 20;
+  const itemsPerPage = 20;
 
-  const loadMorePokemons = async () => {
-    if (loading) {
+  const loadMorePokemons = useCallback(async () => {
+    if (loading || !hasMore) {
       return;
     }
     setLoading(true);
     try {
-      const newPokemons = await fetchPokemons(offset, limit);
-      setPokemons(prevPokemons => [...prevPokemons, ...newPokemons]);
-      setOffset(prevOffset => prevOffset + limit);
+      const newPokemons = await fetchPokemons(offset, itemsPerPage);
+      if (newPokemons.length === 0) {
+        setHasMore(false);
+      } else {
+        setPokemons(prev => [...prev, ...newPokemons]);
+        setOffset(prevOffset => prevOffset + itemsPerPage);
+        setCurrentPage(prevPage => prevPage + 1);
+      }
     } catch (error) {
       console.error('Error fetching more pokemons:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [loading, hasMore, offset]);
 
   useEffect(() => {
     loadMorePokemons();
-  }, []);
+  }, [loadMorePokemons]);
 
-  if (loading && offset === 0) {
-    return <Loader />;
-  }
+  const handleEndReached = () => {
+    if (currentPage * itemsPerPage <= pokemons.length) {
+      loadMorePokemons();
+    }
+  };
 
-  if (pokemons.length === 0) {
-    return (
-      <View style={styles.notFound}>
-        <Text variant="title">No pokemons found!</Text>
-      </View>
-    );
-  }
+  const renderItem = useCallback(
+    ({item}: {item: Pokemon}) => (
+      <Card key={item.name} name={item.name} imageUrl={item.imageUrl} />
+    ),
+    [],
+  );
 
   return (
     <FlatList
       data={pokemons}
-      renderItem={({item}) => (
-        <Card key={item.name} name={item.name} imageUrl={item.imageUrl} />
-      )}
+      renderItem={renderItem}
       keyExtractor={item => item.name}
-      onEndReached={loadMorePokemons}
+      onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}
       ListFooterComponent={loading ? <Loader /> : null}
       numColumns={2}

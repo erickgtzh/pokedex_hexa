@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  pagination: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16,
+  },
 });
 
 export default styles;
