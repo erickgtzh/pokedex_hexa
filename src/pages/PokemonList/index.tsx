@@ -54,8 +54,9 @@ const PokemonList: React.FC = () => {
     loadMoreUserPokemons();
   };
 
-  const onDelete = name => {
-    removePokemon(name);
+  const onDelete = (id: string) => {
+    removePokemon(id);
+    setDisplayedPokemons(prev => prev.filter(pokemon => pokemon.id !== id));
   };
 
   const onViewDetails = pokemon => {
@@ -77,7 +78,7 @@ const PokemonList: React.FC = () => {
       firstType={item.firstType}
       firstMove={item.firstMove}
       lastMove={item.lastMove}
-      onDelete={() => onDelete(item.name)}
+      onDelete={() => onDelete(item.id)}
       onViewDetails={() => onViewDetails(item)}
     />
   );
@@ -93,13 +94,12 @@ const PokemonList: React.FC = () => {
         <FlatList
           data={displayedPokemons}
           renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
           keyExtractor={item => item.name}
           onEndReached={handleEndReached}
           onEndReachedThreshold={0.5}
           ListFooterComponent={
-            currentPage * itemsPerPage >= userPokemons.length ? null : (
-              <Loader />
-            )
+            displayedPokemons.length < userPokemons.length ? <Loader /> : null
           }
           numColumns={2}
         />

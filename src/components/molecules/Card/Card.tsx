@@ -5,35 +5,36 @@ import Loader from '../../atoms/Loader';
 import Text from '../../atoms/Text';
 import {colors} from '../../../utils/colors';
 import {DEFAULT_POKEMON_IMAGE} from '../../../config/constants';
-import {usePokemonContext} from '../../../context/PokemonContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
 interface CardProps {
+  id: string;
   name: string;
   imageUrl: string;
   types: string[];
+  firstType: string;
   firstMove: string;
   lastMove: string;
   lastFiveMoves: string[];
-  onDelete: () => void;
+  onDelete: (id: string) => void;
   onViewDetails: () => void;
 }
 
 const Card: React.FC<CardProps> = React.memo(
   ({
+    id,
     name,
     imageUrl,
     types,
+    firstType,
     firstMove,
     lastMove,
-    lastFiveMoves,
     onDelete,
     onViewDetails,
   }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const {viewPokemonDetails} = usePokemonContext();
 
     const handleLoad = () => {
       setLoading(false);
@@ -70,10 +71,13 @@ const Card: React.FC<CardProps> = React.memo(
         <Text style={styles.text}>
           Types: {types ? types.join(', ') : 'N/A'}
         </Text>
+        <Text style={styles.text}>First Type: {firstType}</Text>
         <Text style={styles.text}>First Move: {firstMove}</Text>
         <Text style={styles.text}>Last Move: {lastMove}</Text>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+          <TouchableOpacity
+            onPress={() => onDelete(id)}
+            style={styles.deleteButton}>
             <MaterialIcons name="delete" size={24} color={colors.white} />
           </TouchableOpacity>
           <TouchableOpacity onPress={onViewDetails} style={styles.detailButton}>

@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface PokemonContextProps {
   userPokemons: Pokemon[];
   addPokemon: (pokemon: Pokemon) => Promise<void>;
-  removePokemon: (name: string) => Promise<void>;
+  removePokemon: (id: string) => Promise<void>;
   selectedPokemon: Pokemon | null;
   viewPokemonDetails: (pokemon: Pokemon | null) => void;
 }
@@ -27,13 +27,15 @@ export const PokemonProvider: React.FC = ({children}) => {
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
 
   const addPokemon = async (pokemon: Pokemon) => {
-    const newUserPokemons = [...userPokemons, pokemon];
+    const id = (userPokemons.length + 1).toString();
+    const newPokemon = {...pokemon, id};
+    const newUserPokemons = [...userPokemons, newPokemon];
     setUserPokemons(newUserPokemons);
     await AsyncStorage.setItem('userPokemons', JSON.stringify(newUserPokemons));
   };
 
-  const removePokemon = async (name: string) => {
-    const newUserPokemons = userPokemons.filter(p => p.name !== name);
+  const removePokemon = async (id: string) => {
+    const newUserPokemons = userPokemons.filter(p => p.id !== id);
     setUserPokemons(newUserPokemons);
     await AsyncStorage.setItem('userPokemons', JSON.stringify(newUserPokemons));
   };

@@ -24,7 +24,9 @@ const PokemonDetailModal: React.FC = () => {
         </TouchableOpacity>
         {selectedPokemon && (
           <>
-            <Text style={styles.title}>{selectedPokemon.name}</Text>
+            <Text style={styles.title}>
+              {selectedPokemon.name} {selectedPokemon.id}
+            </Text>
             <Text style={styles.text}>
               First Type: {selectedPokemon.firstType || 'N/A'}
             </Text>
