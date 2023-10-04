@@ -1,35 +1,11 @@
-import React, {createContext, useReducer, useContext} from 'react';
+import React, {createContext, useState, useContext, ReactNode} from 'react';
 
-interface State {
+interface CounterContextProps {
   count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-type Action = {type: 'INCREMENT'} | {type: 'DECREMENT'};
-
-const CounterContext = createContext<
-  {state: State; dispatch: React.Dispatch<Action>} | undefined
->(undefined);
-
-const counterReducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return {...state, count: state.count + 1};
-    case 'DECREMENT':
-      return {...state, count: state.count - 1};
-    default:
-      return state;
-  }
-};
-
-export const CounterProvider = ({children}: {children: React.ReactNode}) => {
-  const [state, dispatch] = useReducer(counterReducer, {count: 0});
-
-  return (
-    <CounterContext.Provider value={{state, dispatch}}>
-      {children}
-    </CounterContext.Provider>
-  );
-};
+const CounterContext = createContext<CounterContextProps | null>(null);
 
 export const useCounterContext = () => {
   const context = useContext(CounterContext);
@@ -37,4 +13,18 @@ export const useCounterContext = () => {
     throw new Error('useCounterContext must be used within a CounterProvider');
   }
   return context;
+};
+
+interface CounterProviderProps {
+  children: ReactNode;
+}
+
+export const CounterProvider: React.FC<CounterProviderProps> = ({children}) => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <CounterContext.Provider value={{count, setCount}}>
+      {children}
+    </CounterContext.Provider>
+  );
 };

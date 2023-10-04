@@ -11,6 +11,11 @@ export default StyleSheet.create({
   basicButton: {
     backgroundColor: colors.accent,
   },
+  button: {
+    borderRadius: 10,
+    padding: 5,
+    alignItems: 'center',
+  },
   deleteButton: {
     backgroundColor: colors.error,
   },

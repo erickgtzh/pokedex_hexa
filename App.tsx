@@ -1,13 +1,18 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import {CounterProvider} from './src/context/CounterContext';
+import {PokemonProvider} from './src/context/PokemonContext';
+import StackNavigator from './src/navigation/StackNavigator';
+import PokemonDetailModal from './src/components/organisms/PokemonDetailModal';
 
 const App = () => {
   return (
     <NavigationContainer>
       <CounterProvider>
-        <BottomTabNavigator />
+        <PokemonProvider>
+          <PokemonDetailModal />
+          <StackNavigator />
+        </PokemonProvider>
       </CounterProvider>
     </NavigationContainer>
   );

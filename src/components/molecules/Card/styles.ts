@@ -1,24 +1,17 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../utils/colors';
-import fonts from '../../../utils/fonts';
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     borderRadius: 5,
     padding: 15,
     margin: 15,
   },
-  name: {
-    fontSize: fonts.size.md,
-    color: colors.primary,
+  text: {
+    paddingTop: 15,
+    textTransform: 'capitalize',
   },
-  image: {
-    width: 200,
-    aspectRatio: 1,
-    borderRadius: 100,
-  },
-  text: {paddingTop: 15, textTransform: 'capitalize'},
   imageContainer: {
     height: 125,
     width: 125,
@@ -35,4 +28,21 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  deleteButton: {
+    backgroundColor: colors.error,
+    padding: 10,
+    borderRadius: 8,
+  },
+  detailButton: {
+    backgroundColor: colors.accent,
+    padding: 10,
+    borderRadius: 8,
+  },
 });
+
+export default styles;

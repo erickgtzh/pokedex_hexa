@@ -4,7 +4,7 @@ import {colors} from '../../utils/colors';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.primary,
     alignItems: 'center',
     flexGrow: 1,
   },
@@ -21,6 +21,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 16,
+  },
+  addBtn: {
+    backgroundColor: colors.accent,
+    borderRadius: 50,
+    marginRight: 10,
+    padding: 10,
+  },
+  noPokemon: {
+    textAlign: 'center',
+    padding: 40,
   },
 });
 

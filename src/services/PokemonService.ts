@@ -10,7 +10,13 @@ export const fetchPokemons = async (offset = 0, limit = 20) => {
     );
     return response.data.results.map(
       (pokemon: any, index: number) =>
-        new Pokemon(pokemon.name, offset + index + 1),
+        new Pokemon(
+          pokemon.name,
+          offset + index + 1,
+          pokemon.firstType,
+          pokemon.firstMove,
+          pokemon.lastMove,
+        ),
     );
   } catch (error) {
     Alert.alert(
