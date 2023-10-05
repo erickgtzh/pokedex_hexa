@@ -4,6 +4,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import AddPokemonScreen from '../pages/AddPokemon';
 import AddPokemonSelector from '../components/organisms/AddPokemonSelector';
 import ApiPokemonListScreen from '../components/organisms/ApiPokemonList';
+import EditProfile from '../pages/EditProfile';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,11 @@ const StackNavigator = () => {
         name="ApiPokemonList"
         component={ApiPokemonListScreen}
         options={{title: 'Pokémon List'}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{title: 'Edit Profile'}}
       />
     </Stack.Navigator>
   );

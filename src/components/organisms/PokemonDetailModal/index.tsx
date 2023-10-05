@@ -38,6 +38,12 @@ const PokemonDetailModal: React.FC = () => {
           <>
             <Text style={styles.title}>{selectedPokemon.name}</Text>
             <Text style={styles.text}>
+              Types:{' '}
+              {selectedPokemon.types
+                ? renderTypes(selectedPokemon.types)
+                : 'N/A'}
+            </Text>
+            <Text style={styles.text}>
               First Type: {selectedPokemon.firstType || 'N/A'}
             </Text>
             <Text style={styles.text}>
