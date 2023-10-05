@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightgray,
   },
   modalView: {
-    backgroundColor: colors.lightgray,
+    backgroundColor: colors.primary,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     padding: 35,
@@ -38,12 +38,15 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   title: {
-    fontSize: fonts.size.md,
+    fontSize: fonts.size.xlg,
     color: colors.white,
+    fontWeight: fonts.weight.bold,
+    textTransform: 'capitalize',
   },
   text: {
-    fontSize: fonts.size.md,
+    fontSize: fonts.size.lg,
     color: colors.white,
+    fontWeight: fonts.weight.bold,
   },
 });
 

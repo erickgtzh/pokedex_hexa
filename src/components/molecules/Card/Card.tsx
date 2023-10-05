@@ -68,9 +68,6 @@ const Card: React.FC<CardProps> = React.memo(
           color={colors.black}>
           {name}
         </Text>
-        <Text style={styles.text}>
-          Types: {types ? types.join(', ') : 'N/A'}
-        </Text>
         <Text style={styles.text}>First Type: {firstType}</Text>
         <Text style={styles.text}>First Move: {firstMove}</Text>
         <Text style={styles.text}>Last Move: {lastMove}</Text>
