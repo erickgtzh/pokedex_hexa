@@ -21,18 +21,20 @@ const MyProfile: React.FC = () => {
   return (
     <View style={styles.container}>
       {user ? (
-        <Pressable onPress={handleEditProfile} style={styles.content}>
-          <Avatar src={user.avatarUrl || DEFAULT_POKEMON_IMAGE} />
+        <Pressable onPress={handleEditProfile} style={styles.fullSize}>
           <ProfileInfo fullName={user.fullName} birthDate={user.birthDate} />
         </Pressable>
       ) : (
         <>
-          <Text variant="subtitle" style={{paddingBottom: 40}}>
+          <Text variant="subtitle" style={styles.pb40}>
             You should fill out your profile to see your information...
           </Text>
           <Button onPress={handleEditProfile} title="Edit Profile" />
         </>
       )}
+      <Text variant="normal" style={styles.bottom}>
+        Click the screen to modify your information...
+      </Text>
     </View>
   );
 };
@@ -42,12 +44,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  content: {
     backgroundColor: colors.primary,
     width: '100%',
     height: '100%',
   },
+  bottom: {marginTop: 'auto'},
+  pb40: {paddingBottom: 40},
+  fullSize: {width: '100%', height: '100%', justifyContent: 'center'},
 });
 
 export default MyProfile;
