@@ -1,6 +1,6 @@
 // ApiPokemonCard.tsx
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import {usePokemonContext} from '../../../context/PokemonContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {colors} from '../../../utils/colors';
@@ -35,6 +35,7 @@ const ApiPokemonCard: React.FC<{pokemon: Pokemon}> = ({pokemon}) => {
       };
       addApiPokemon(newPokemon);
     });
+    Alert.alert('Pokemon added successfully!');
   };
 
   const handleViewDetails = () => {

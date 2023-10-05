@@ -1,6 +1,6 @@
-// components/molecules/ProfileInfo.tsx
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import Text from '../../atoms/Text';
 
 const ProfileInfo: React.FC<{fullName: string; birthDate: string}> = ({
   fullName,
@@ -8,8 +8,8 @@ const ProfileInfo: React.FC<{fullName: string; birthDate: string}> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.fullName}>{fullName}</Text>
-      <Text style={styles.birthDate}>{birthDate}</Text>
+      <Text style={styles.fullName}>Full Name: {fullName}</Text>
+      <Text style={styles.birthDate}>Birth Date:{birthDate}</Text>
     </View>
   );
 };

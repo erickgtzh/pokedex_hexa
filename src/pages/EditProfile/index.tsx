@@ -1,39 +1,12 @@
-// screens/EditProfile.tsx
-import React, {useState} from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
-import Button from '../../components/atoms/Button';
-import User from '../../models/User';
-import {useUserContext} from '../../context/UserContex';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
+import EditProfileForm from '../../components/organisms/EditProfileForm';
+import {colors} from '../../utils/colors';
 
-const EditProfile: React.FC = () => {
-  const {user, updateUser} = useUserContext();
-  const [fullName, setFullName] = useState(user?.fullName || '');
-  const [birthDate, setBirthDate] = useState(user?.birthDate || '');
-
-  const navigation = useNavigation();
-
-  const handleUpdateProfile = () => {
-    if (user) {
-      const updatedUser = new User(user.avatarUrl, fullName, birthDate);
-      updateUser(updatedUser);
-      navigation.goBack();
-    }
-  };
-
+const EditProfileScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <TextInput
-        value={fullName}
-        onChangeText={setFullName}
-        placeholder="Full Name"
-      />
-      <TextInput
-        value={birthDate}
-        onChangeText={setBirthDate}
-        placeholder="Birth Date"
-      />
-      <Button onPress={handleUpdateProfile} title="Update Profile" />
+      <EditProfileForm />
     </View>
   );
 };
@@ -43,7 +16,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: colors.primary,
   },
 });
 
-export default EditProfile;
+export default EditProfileScreen;

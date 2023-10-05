@@ -1,11 +1,20 @@
-export default class User {
-  avatarUrl: string;
+class User {
+  id: string;
   fullName: string;
   birthDate: string;
+  avatarUrl: string;
 
-  constructor(avatarUrl: string, fullName: string, birthDate: string) {
-    this.avatarUrl = avatarUrl;
+  constructor(
+    id: string,
+    fullName: string,
+    birthDate: string,
+    avatarUrl: string = '',
+  ) {
+    this.id = id;
     this.fullName = fullName;
     this.birthDate = birthDate;
+    this.avatarUrl = avatarUrl;
   }
 }
+
+export default User;
